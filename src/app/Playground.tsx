@@ -5,6 +5,7 @@ import { J, O, T, I, Z, L, S } from '../shapes';
 import { Button } from 'antd';
 import { Point } from './Point';
 import { ShapePreview } from './ShapePriview';
+import { ShapeEditor } from './ShapeEditor';
 
 const shapes = [J, O, T, I, Z, L, S];
 
@@ -93,45 +94,51 @@ export const Playground = observer(
           >
             <ShapePreview shape={this.game.nextShape} pointSize={this.props.pointSize} />
           </div>
-          <div
-            style={{
-              position: 'relative',
-              width,
-              height,
-              border: '1px solid rgba(23, 26, 29, 0.16)',
-              boxSizing: 'border-box',
-            }}
-          >
-            {this.renderActiveShape()}
-            {this.renderFilledPoint()}
-          </div>
-          {!this.game.started && (
-            <Button
+          <div>
+            <div
               style={{
                 position: 'relative',
-                top: '10px',
-                left: '50%',
-                transform: 'translateX(-50%)',
+                width,
+                height,
+                border: '1px solid rgba(23, 26, 29, 0.16)',
+                boxSizing: 'border-box',
               }}
-              onClick={() => {
-                this.game.start();
-              }}
-              type="primary"
             >
-              点击开始游戏
-            </Button>
-          )}
-          <div
-            style={{
-              position: 'absolute',
-              height: 2,
-              right: 0,
-              top: 0,
-              background: 'rgba(23, 26, 29, 0.16)',
-            }}
-          >
-            {this.game.filledRowNum}
+              {this.renderActiveShape()}
+              {this.renderFilledPoint()}
+              <div
+                style={{
+                  float: 'right',
+                  height: 2,
+                  fontWeight: 'bold',
+                  color: '#FF4400',
+                  fontSize: 40,
+                  margin: 8,
+                  right: 0,
+                  top: 0,
+                }}
+              >
+                {this.game.filledRowNum}
+              </div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {!this.game.started && (
+                <Button
+                  style={{
+                    margin: '24px auto',
+                  }}
+                  onClick={() => {
+                    this.game.start();
+                  }}
+                  type="primary"
+                >
+                  点击开始游戏
+                </Button>
+              )}
+            </div>
           </div>
+
+          <ShapeEditor></ShapeEditor>
         </div>
       );
     }
