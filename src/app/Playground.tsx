@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Game, Ground } from '../model';
 import { J, O, T, I, Z, L, S } from '../shapes';
+import { Button } from 'antd';
 
 const shapes = [J, O, T, I, Z, L, S];
 
@@ -16,7 +17,7 @@ export const Playground = observer(
 
     handleKeyDown = (e: KeyboardEvent) => {
       const game = this.game;
-      if (e.code === 'Space') game.start();
+      // if (e.code === 'Space') game.start();
       if (!game.started) return;
       if (e.code === 'ArrowLeft') game.moveLeft();
       if (e.code === 'ArrowRight') game.moveRight();
@@ -89,19 +90,37 @@ export const Playground = observer(
       const width = this.props.groundSize[0] * this.props.pointSize + 2;
       const height = this.props.groundSize[1] * this.props.pointSize + 2;
       return (
-        <div
-          style={{
-            position: 'relative',
-            margin: '48px auto 0',
-            width,
-            height,
-            border: '1px solid rgba(23, 26, 29, 0.16)',
-            boxSizing: 'border-box',
-          }}
-        >
-          {this.renderActiveShape()}
-          {this.renderFilledPoint()}
-        </div>
+        <>
+          <div
+            style={{
+              position: 'relative',
+              margin: '48px auto 0',
+              width,
+              height,
+              border: '1px solid rgba(23, 26, 29, 0.16)',
+              boxSizing: 'border-box',
+            }}
+          >
+            {this.renderActiveShape()}
+            {this.renderFilledPoint()}
+          </div>
+          {!this.game.started && (
+            <Button
+              style={{
+                position: 'relative',
+                top: '10px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+              }}
+              onClick={() => {
+                this.game.start();
+              }}
+              type="primary"
+            >
+              点击开始游戏
+            </Button>
+          )}
+        </>
       );
     }
   }
