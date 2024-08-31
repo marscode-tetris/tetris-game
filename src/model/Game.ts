@@ -9,6 +9,7 @@ export class Game {
   private timer?: number;
 
   get started() {
+    // test
     return this.timer !== undefined;
   }
 
