@@ -2,6 +2,8 @@ import EventEmitter2 from 'eventemitter2';
 import { makeAutoObservable } from 'mobx';
 import { Ground } from './Ground';
 import { Shape, ShapeOptions } from './Shape';
+import { Button } from 'antd';
+
 
 export class Game {
   private timer?: number;
