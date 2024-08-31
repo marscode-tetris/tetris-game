@@ -4,7 +4,6 @@ import { Ground } from './Ground';
 import { Shape, ShapeOptions } from './Shape';
 import { Button } from 'antd';
 
-
 export class Game {
   private timer?: number;
 
@@ -18,6 +17,8 @@ export class Game {
   activeShape: Shape;
 
   nextShape: Shape;
+
+  filledRowNum: number = 0;
 
   constructor(readonly ground: Ground, readonly shapeTypes: ShapeOptions[]) {
     this.activeShape = this.randomCreateShape();
@@ -63,7 +64,8 @@ export class Game {
 
   private dropActiveShape() {
     this.ground.dropShape(this.activeShape);
-    this.ground.clearFilledRow();
+    const clearedRows = this.ground.clearFilledRow();
+    this.filledRowNum += clearedRows;
     const nextShape = this.nextShape;
     this.nextShape = this.randomCreateShape();
     this.setActiveShape(nextShape);

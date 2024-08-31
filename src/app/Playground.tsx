@@ -121,6 +121,17 @@ export const Playground = observer(
               点击开始游戏
             </Button>
           )}
+          <div
+            style={{
+              position: 'absolute',
+              height: 2,
+              right: 0,
+              top: 0,
+              background: 'rgba(23, 26, 29, 0.16)',
+            }}
+          >
+            {this.game.filledRowNum}
+          </div>
         </div>
       );
     }

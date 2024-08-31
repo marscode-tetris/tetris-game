@@ -95,9 +95,14 @@ export class Ground {
   }
 
   clearFilledRow() {
+    let clearRows = 0;
     this.playground.forEach((row, index) => {
-      if (this.isRowFilled(row)) this.clearRow(index);
+      if (this.isRowFilled(row)) {
+        clearRows++;
+        this.clearRow(index);
+      }
     });
+    return clearRows;
   }
 
   clone() {
