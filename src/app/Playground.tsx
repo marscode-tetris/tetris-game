@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import { Game, Ground } from '../model';
 import { J, O, T, I, Z, L, S } from '../shapes';
 import { Button } from 'antd';
+import { Point } from './Point';
+import { ShapePreview } from './ShapePriview';
 
 const shapes = [J, O, T, I, Z, L, S];
 
@@ -49,19 +51,7 @@ export const Playground = observer(
       const pointsInGround = activeShape.points.filter((p) => !this.game.ground.isPointOutOfGround(p));
       const pointSize = this.props.pointSize;
       return pointsInGround.map((p) => (
-        <div
-          key={`${p[0]}${p[1]}`}
-          style={{
-            position: 'absolute',
-            width: pointSize,
-            height: pointSize,
-            left: p[0] * pointSize,
-            top: p[1] * pointSize,
-            background: '#2fad44',
-            border: '1px solid rgba(255, 255, 255, .2)',
-            boxSizing: 'border-box',
-          }}
-        ></div>
+        <Point background="#2fad44" pointSize={pointSize} key={`${p[0]}${p[1]}`} coordinate={p} />
       ));
     }
 
@@ -90,11 +80,22 @@ export const Playground = observer(
       const width = this.props.groundSize[0] * this.props.pointSize + 2;
       const height = this.props.groundSize[1] * this.props.pointSize + 2;
       return (
-        <>
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <div
+            style={{
+              width: 5 * this.props.pointSize,
+              height: this.props.pointSize,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '20px 20px',
+            }}
+          >
+            <ShapePreview shape={this.game.nextShape} pointSize={this.props.pointSize} />
+          </div>
           <div
             style={{
               position: 'relative',
-              margin: '48px auto 0',
               width,
               height,
               border: '1px solid rgba(23, 26, 29, 0.16)',
@@ -120,7 +121,7 @@ export const Playground = observer(
               点击开始游戏
             </Button>
           )}
-        </>
+        </div>
       );
     }
   }

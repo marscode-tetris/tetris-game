@@ -16,8 +16,11 @@ export class Game {
 
   activeShape: Shape;
 
+  nextShape: Shape;
+
   constructor(readonly ground: Ground, readonly shapeTypes: ShapeOptions[]) {
     this.activeShape = this.randomCreateShape();
+    this.nextShape = this.randomCreateShape();
     makeAutoObservable(this, {
       event: false,
     });
@@ -60,7 +63,9 @@ export class Game {
   private dropActiveShape() {
     this.ground.dropShape(this.activeShape);
     this.ground.clearFilledRow();
-    this.setActiveShape(this.randomCreateShape());
+    const nextShape = this.nextShape;
+    this.nextShape = this.randomCreateShape();
+    this.setActiveShape(nextShape);
   }
 
   private moveDown() {
